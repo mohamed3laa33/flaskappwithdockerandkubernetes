@@ -1,0 +1,27 @@
+version: '2'
+services:
+ mongodb:
+   image: mongo:3.3   
+   expose:                 
+     - "27017"
+   volumes:
+     - db_data:/data/db
+   environment:    
+    MONGODB_DATABASE: rsvpdata
+   networks:
+    - rsvpnet
+
+ web:
+   build: .
+   ports:
+    - "5000:5000"
+   environment:
+    MONGODB_HOST: mongodb
+   networks:
+    - rsvpnet
+
+networks:
+  rsvpnet:
+
+volumes:
+   db_data:
